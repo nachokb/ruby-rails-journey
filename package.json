@@ -1,0 +1,14 @@
+{
+  "name": "ruby-rails-journey",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node test/journey.test.mjs && node test/core.test.mjs && node test/bundle.test.mjs",
+    "test:smoke": "node test/smoke.test.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

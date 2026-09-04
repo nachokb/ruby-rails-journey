@@ -1,0 +1,464 @@
+{
+  "ruby_versions": [
+    {
+      "version": "2.5",
+      "released": "2017-12",
+      "eol": "2021-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "2.6",
+      "released": "2018-12",
+      "eol": "2022-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "2.7",
+      "released": "2019-12",
+      "eol": "2023-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "3.0",
+      "released": "2020-12",
+      "eol": "2024-04",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "3.1",
+      "released": "2021-12",
+      "eol": "2025-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "3.2",
+      "released": "2022-12",
+      "eol": "2026-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    },
+    {
+      "version": "3.3",
+      "released": "2023-12",
+      "eol": "2027-03",
+      "release_notes_url": "https://www.ruby-lang.org/en/downloads/releases/"
+    }
+  ],
+  "rails_versions": [
+    {
+      "version": "6.0",
+      "min_ruby": "2.5",
+      "released": "2019-08",
+      "support": "2021-12",
+      "eol": "2023-06",
+      "release_notes_url": "https://github.com/rails/rails/releases/tag/v6.0.0"
+    },
+    {
+      "version": "6.1",
+      "min_ruby": "2.5",
+      "released": "2020-12",
+      "support": "2021-12",
+      "eol": "2024-10",
+      "release_notes_url": "https://github.com/rails/rails/releases/tag/v6.1.0"
+    },
+    {
+      "version": "7.0",
+      "min_ruby": "2.7",
+      "released": "2021-12",
+      "support": "2023-10",
+      "eol": "2025-04",
+      "release_notes_url": "https://github.com/rails/rails/releases/tag/v7.0.0"
+    },
+    {
+      "version": "7.1",
+      "min_ruby": "2.7",
+      "released": "2023-10",
+      "support": "2024-10",
+      "eol": "2025-10",
+      "release_notes_url": "https://github.com/rails/rails/releases/tag/v7.1.0"
+    }
+  ],
+  "cells": {
+    "6.0|2.5": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.0|2.6": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.0|2.7": {
+      "status": "green",
+      "confidence": "inferred",
+      "notes": [
+        {
+          "ref": "green-inf",
+          "years": 1
+        }
+      ]
+    },
+    "6.0|3.0": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "kwarg"
+        }
+      ]
+    },
+    "6.0|3.1": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "kwarg"
+        }
+      ]
+    },
+    "6.0|3.2": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "kwarg"
+        }
+      ]
+    },
+    "6.0|3.3": {
+      "status": "gray",
+      "confidence": "inferred",
+      "notes": []
+    },
+    "6.1|2.5": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.1|2.6": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.1|2.7": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.1|3.0": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.1|3.1": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "6.1|3.2": {
+      "status": "blue",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "workaround"
+        }
+      ]
+    },
+    "6.1|3.3": {
+      "status": "blue",
+      "confidence": "inferred",
+      "notes": [
+        {
+          "ref": "blue-inf"
+        }
+      ]
+    },
+    "7.0|2.5": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "floor"
+        }
+      ]
+    },
+    "7.0|2.6": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "floor"
+        }
+      ]
+    },
+    "7.0|2.7": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.0|3.0": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.0|3.1": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.0|3.2": {
+      "status": "blue",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "workaround"
+        }
+      ]
+    },
+    "7.0|3.3": {
+      "status": "blue",
+      "confidence": "inferred",
+      "notes": [
+        {
+          "ref": "blue-inf"
+        }
+      ]
+    },
+    "7.1|2.5": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "floor"
+        }
+      ]
+    },
+    "7.1|2.6": {
+      "status": "red",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "floor"
+        }
+      ]
+    },
+    "7.1|2.7": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.1|3.0": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.1|3.1": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.1|3.2": {
+      "status": "green",
+      "confidence": "confirmed",
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    "7.1|3.3": {
+      "status": "green",
+      "confidence": "inferred",
+      "notes": [
+        {
+          "ref": "green-inf",
+          "years": 1
+        }
+      ]
+    }
+  },
+  "noteTemplates": {
+    "floor": "Below Rails {rails}'s required_ruby_version (>= {minRuby})",
+    "kwarg": "Ruby 3.0's positional/keyword-argument separation breaks Rails {rails} outright (confirmed, e.g. rails/rails#40938 for 5.2)",
+    "green-conf": "Ruby {ruby} was already out (or came out within a year) when Rails {rails} shipped — within the range Rails actually tests and tracks in its CI.",
+    "green-inf": "Ruby {ruby} arrived ~{years} years into Rails {rails}'s life. Likely still within its maintenance window, but not confirmed against a specific Rails CI run — treat as a best-effort inference.",
+    "blue-inf": "Ruby {ruby} shipped well after Rails {rails} was EOL'd; commonly reported to mostly work, but never an officially tested pairing — treat as a best-effort inference.",
+    "workaround": "Runs only with a workaround: Ruby {ruby}'s built-in Set class and (from 3.4 on) removal of default gems like cgi clash with Rails {rails} internals until the fixes backported in 7.1+."
+  },
+  "noteRules": [
+    {
+      "name": "floor",
+      "when": [
+        {
+          "match": [
+            "status",
+            "red"
+          ]
+        },
+        {
+          "belowFloor": true
+        }
+      ],
+      "notes": [
+        {
+          "ref": "floor"
+        }
+      ]
+    },
+    {
+      "name": "kwarg",
+      "when": [
+        {
+          "match": [
+            "status",
+            "red"
+          ]
+        }
+      ],
+      "notes": [
+        {
+          "ref": "kwarg"
+        }
+      ]
+    },
+    {
+      "name": "workaround",
+      "when": [
+        {
+          "match": [
+            "status",
+            "blue"
+          ]
+        },
+        {
+          "match": [
+            "confidence",
+            "confirmed"
+          ]
+        }
+      ],
+      "notes": [
+        {
+          "ref": "workaround"
+        }
+      ]
+    },
+    {
+      "name": "blue-inf",
+      "when": [
+        {
+          "match": [
+            "status",
+            "blue"
+          ]
+        }
+      ],
+      "notes": [
+        {
+          "ref": "blue-inf"
+        }
+      ]
+    },
+    {
+      "name": "green-conf",
+      "when": [
+        {
+          "match": [
+            "status",
+            "green"
+          ]
+        },
+        {
+          "match": [
+            "confidence",
+            "confirmed"
+          ]
+        }
+      ],
+      "notes": [
+        {
+          "ref": "green-conf"
+        }
+      ]
+    },
+    {
+      "name": "green-inf",
+      "when": [
+        {
+          "match": [
+            "status",
+            "green"
+          ]
+        }
+      ],
+      "notes": [
+        {
+          "ref": "green-inf",
+          "years": 1
+        }
+      ]
+    }
+  ],
+  "router": {
+    "maxPaths": 5,
+    "weights": {
+      "green": 1,
+      "greenInferred": 1.5,
+      "blue": 2,
+      "gray": 10
+    },
+    "turnPenalty": 1
+  }
+}

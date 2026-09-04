@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Widget demo — Ruby × Rails Matrix</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 1000px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+      h1 { font-size: 1.3rem; }
+      p { color: #666; }
+      .row { display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem; }
+      ruby-rails-matrix { max-width: 100%; }
+    </style>
+  </head>
+  <body>
+    <h1>Ruby × Rails Matrix — widget demo</h1>
+    <p>Two embedded widgets. The second pins Home/Target and forces dark theme. In this source-mode demo the widget is given explicit data-src/data-styles; when served from <code>dist/</code> it self-locates next to <code>widget.js</code>.</p>
+
+    <div class="row">
+      <ruby-rails-matrix data-src="data.json" data-styles="styles.css"></ruby-rails-matrix>
+      <ruby-rails-matrix data-src="data.json" data-styles="styles.css" home="5.2|2.7" target="8.1|4.0" theme="dark"></ruby-rails-matrix>
+    </div>
+
+    <script type="module" src="./src/widget.js"></script>
+  </body>
+</html>
