@@ -37,10 +37,10 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install + build
-        working-directory: .
         run: |
           npm ci
           npm run build
+        working-directory: .
 
       - uses: actions/configure-pages@v5
 

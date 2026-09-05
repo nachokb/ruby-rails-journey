@@ -50,7 +50,7 @@ function assert(cond, msg) {
   console.log("3. reset clears URL + panel: OK");
 }
 
-// ---- 4. copy link copies current URL ----
+// ---- 4. share menu: copy URL copies current URL ----
 {
   const { doc, map } = makeDoc();
   let copied = null;
@@ -60,10 +60,16 @@ function assert(cond, msg) {
   createApp(DATA, doc);
   clickCell(map, 1, 0);
   map["copy-link-btn"].dispatch("click");
+  // the menu is appended to doc.body; find the "Copy URL" option
+  const backdrop = doc.body.children.find((c) => c.className === "share-backdrop");
+  assert(!!backdrop, "share menu should open");
+  const option = backdrop.children[0].children.find((c) => (c.textContent || "").trim() === "Copy URL");
+  assert(!!option, "Copy URL option present");
+  option.dispatch("click");
   await new Promise((r) => setTimeout(r, 10));
   assert(copied !== null, "clipboard.writeText should be called");
   assert(copied.indexOf("#j;") >= 0, "copied URL should contain the journey hash, got " + copied);
-  console.log("4. copy link copies journey URL: OK (" + copied + ")");
+  console.log("4. share menu copies journey URL: OK (" + copied + ")");
 }
 
 // ---- 5. current step: clicking a path cell advances, hash updates ----
@@ -137,3 +143,33 @@ function assert(cond, msg) {
 }
 
 console.log("\nCORE BEHAVIOR: ALL PASS");
+// ---- 8. share menu: iframe + web component snippets ----
+{
+  const { doc, map } = makeDoc();
+  const copied = [];
+  installGlobals({ hash: "#", doc, fetchImpl: async () => ({ ok: true, status: 200, json: async () => DATA }),
+    clipboardImpl: { writeText: async (s) => { copied.push(s); } } });
+  const createApp = await importCore("?share2");
+  createApp(DATA, doc, { copyLinkBase: "http://test/site/index.html" });
+  clickCell(map, 1, 0);
+
+  function clickOption(label) {
+    map["copy-link-btn"].dispatch("click");
+    const backdrop = doc.body.children.find((c) => c.className === "share-backdrop");
+    const option = backdrop.children[0].children.find((c) => (c.textContent || "").trim() === label);
+    option.dispatch("click");
+    return backdrop;
+  }
+  clickOption("Copy iframe code");
+  clickOption("Copy Web Component code");
+
+  await new Promise((r) => setTimeout(r, 10));
+  const iframe = copied[0] || "";
+  const wc = copied[1] || "";
+  assert(iframe.includes("<iframe") && iframe.includes("embed.html") && iframe.includes("width=\"780\"") && iframe.includes("height=\"660\""), "iframe snippet");
+  assert(iframe.indexOf("#j;") >= 0, "iframe carries journey fragment");
+  assert(wc.includes("<script") && wc.includes("widget.js") && wc.includes("<ruby-rails-matrix"), "web component snippet");
+  assert(wc.includes("home=\"6.1|2.5\"") && wc.includes("target=\"7.1|3.3\"") && wc.includes("data-journey"), "wc has home/target/data-journey");
+  assert(copied.length === 2, "only iframe + wc copied");
+  console.log("8. share menu iframe + web component snippets: OK");
+}

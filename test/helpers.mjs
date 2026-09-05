@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { pathToFileURL, fileURLToPath } from "node:url";
 
+// Resolve paths relative to this file's own location so the repo is portable.
 const HERE = new URL(".", import.meta.url);
 export const SRC = fileURLToPath(new URL("../src/", HERE));
 export const ROOT = fileURLToPath(new URL("../", HERE));

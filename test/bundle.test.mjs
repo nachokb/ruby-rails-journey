@@ -4,7 +4,7 @@ import { ROOT } from "./helpers.mjs";
 // ---- dist pages load the widget bundle, not source modules ----
 for (const page of ["index.html", "embed.html"]) {
   const html = fs.readFileSync(ROOT + "/dist/" + page, "utf-8");
-  if (!html.includes('src="widget.js"')) throw new Error("dist/" + page + " should load widget.js");
+  if (!/src="widget\.js(?:\?[^"]*)?"/.test(html)) throw new Error("dist/" + page + " should load widget.js");
   if (html.includes("src/app.js") || html.includes("src/site.js") || html.includes("src/") && html.includes("module")) {
     // src/ references are fine as data-src/data-styles, but module script must be the bundle
     if (/<script[^>]+src="src\/[^"]+"/.test(html)) throw new Error("dist/" + page + " has a source module script");
@@ -20,9 +20,10 @@ if (!wcode.includes("customElements.define") || !wcode.includes("ruby-rails-matr
 if (!wcode.includes("import.meta.url")) {
   throw new Error("widget bundle must preserve import.meta.url for self-locating assets");
 }
-// The AI-Generated button lives in the widget now (single source).
-if (!wcode.includes("AI-Generated") || !wcode.includes("data-popover-text")) {
-  throw new Error("widget bundle should contain the AI-Generated button + popover wiring");
+// The AI-Generated button lives in the widget now (single source), using the
+// inline logo SVG + popover wiring.
+if (!wcode.includes("logo-ai") || !wcode.includes("data-popover-text")) {
+  throw new Error("widget bundle should contain the AI button (logo svg + popover wiring)");
 }
 console.log("widget bundle defines <ruby-rails-matrix>, self-locating, with AI button: OK");
 

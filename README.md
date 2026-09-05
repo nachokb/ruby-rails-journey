@@ -62,7 +62,7 @@ GitLab strips `<script>` from MR descriptions, so the widget's JS bundle can't r
 <iframe src="https://<site>/embed.html#j;…" width="780" height="660"></iframe>
 ```
 
-- The `#j;…` fragment configures Home/Target/path exactly like the site's Copy Link format — paste the shared bookmark.
+- The `#j;…` fragment configures Home/Target/path — the **share menu** (share icon in the toolbar) offers three copies: **Copy URL**, **Copy iframe code**, and **Copy Web Component code** (all carrying the current journey).
 - Theme follows `prefers-color-scheme`.
 - **Requires allowlisting** the Pages domain as an iframe source: self-hosted GitLab instance setting `allow_iframe_href` (instance-level). gitlab.com does **not** allow arbitrary iframe domains, so it won't render there — nor will GitHub PR descriptions (GitHub similarly allowlists iframe sources).
 

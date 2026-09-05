@@ -13,8 +13,8 @@
   --home-color: #3d5570;
   --target-color: #b5762a;
   --current-color: #7a4d8f;
-  --path-line: #ffffff;
-  --path-halo: rgb(0 0 0 / 0.4);
+  --path-line: #1c2321;
+  --path-halo: rgb(0 0 0 / 0.15);
 
   --sem-green: #3f7d52;
   --sem-green-bg: #cde3d4;
@@ -48,6 +48,8 @@
     --home-color: #8fb3d6;
     --target-color: #d9a561;
     --current-color: #b98ada;
+    --path-line: #ffffff;
+    --path-halo: rgb(0 0 0 / 0.5);
 
     --sem-green: #7fd199;
     --sem-green-bg: #2b4536;
@@ -77,6 +79,8 @@
   --home-color: #8fb3d6;
   --target-color: #d9a561;
   --current-color: #b98ada;
+  --path-line: #ffffff;
+  --path-halo: rgb(0 0 0 / 0.5);
 
   --sem-green: #7fd199;
   --sem-green-bg: #2b4536;
@@ -226,7 +230,7 @@ section.card {
 svg#matrix { display: block; font-family: var(--font-mono); }
 
 .cell-label {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 600;
   pointer-events: none;
 }
@@ -321,6 +325,75 @@ svg#matrix { display: block; font-family: var(--font-mono); }
   width: auto;
   vertical-align: -0.15em;
   color: inherit; /* inherits button color (var(--ink)) */
+}
+
+.share-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+}
+
+.reset-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+}
+
+/* ---- Share menu ---- */
+
+.share-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgb(0 0 0 / 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 3rem 1.5rem 1.5rem; /* extra top room for the close button */
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.25);
+  min-width: 260px;
+}
+
+.share-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease;
+}
+
+.share-close:hover {
+  border-color: var(--ink-faint);
+}
+
+.share-option {
+  width: 100%;
+  text-align: left;
 }
 
 #logo {

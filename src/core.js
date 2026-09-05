@@ -422,13 +422,7 @@ function makeStructuredPopover(el) {
     return true;
   }
 
-  // ---- Copy Link ----
-
-  function flashCopied() {
-    const old = copyBtn.textContent;
-    copyBtn.textContent = "Copied!";
-    setTimeout(function () { copyBtn.textContent = old; }, 1200);
-  }
+  // ---- Share ----
 
   function fallbackCopy(text) {
     const ta = doc.createElement("textarea");
@@ -440,19 +434,117 @@ function makeStructuredPopover(el) {
     ta.select();
     try { doc.execCommand("copy"); } catch (e) {}
     ta.remove();
-    flashCopied();
   }
 
   if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      const url = makeCopyUrl();
-      if (!url) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(flashCopied).catch(() => fallbackCopy(url));
-      } else {
-        fallbackCopy(url);
-      }
-    });
+    copyBtn.addEventListener("click", () => openShareMenu());
+  }
+
+  // ---- Share menu: backdrop + 3 vertically-stacked copy buttons ----
+
+  let shareMenu = null;
+
+  function shareBase(variant) {
+    // Returns an absolute URL to a sibling file (index.html / embed.html /
+    // widget.js). Site: relative to the page. Widget: canonical base dir.
+    const base = options.copyLinkBase;
+    const dir = base ? base.slice(0, base.lastIndexOf("/") + 1) : (location.origin + location.pathname.replace(/[^/]*$/, ""));
+    const file = variant === "embed" ? "embed.html" : variant === "widget" ? "widget.js" : "index.html";
+    return dir + file;
+  }
+
+  function currentJourneyFragment() {
+    if (urlSync) syncUrl();
+    const frag = encodeJourney(DATA, state, router);
+    return frag.charAt(0) === "#" ? frag.slice(1) : frag;
+  }
+
+  function widgetAttrs() {
+    // home/target as version pairs + same data-journey fragment as iframe.
+    const attrs = [];
+    if (state.home) attrs.push("home=\"" + railsVersions[state.home.i] + "|" + rubyVersions[state.home.j] + "\"");
+    if (state.target) attrs.push("target=\"" + railsVersions[state.target.i] + "|" + rubyVersions[state.target.j] + "\"");
+    const frag = currentJourneyFragment();
+    if (frag) attrs.push("data-journey=\"#" + frag + "\"");
+    return attrs.join(" ");
+  }
+
+  function buildSnippets() {
+    const frag = currentJourneyFragment();
+    return {
+      url: makeCopyUrl(),
+      iframe: '<iframe src="' + shareBase("embed") + (frag ? "#" + frag : "") +
+        '" width="780" height="660" title="Ruby × Rails Matrix" style="border:0"></iframe>',
+      widget: '<script type="module" src="' + shareBase("widget") + '"></script>\n' +
+        '<ruby-rails-matrix ' + widgetAttrs() + '></ruby-rails-matrix>'
+    };
+  }
+
+  function doCopy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  // Temporarily show "Copied!" on the share button, then restore its icon.
+  function flashShareButton() {
+    if (!copyBtn) return;
+    const oldHtml = copyBtn.innerHTML;
+    copyBtn.textContent = "Copied!";
+    setTimeout(function () { copyBtn.innerHTML = oldHtml; }, 700);
+  }
+
+  function closeShareMenu() {
+    if (shareMenu) { shareMenu.remove(); shareMenu = null; }
+  }
+
+  function openShareMenu() {
+    closeShareMenu();
+    const wrap = doc.createElement("div");
+    wrap.className = "share-backdrop";
+
+    const col = doc.createElement("div");
+    col.className = "share-menu";
+
+    const close = doc.createElement("button");
+    close.type = "button";
+    close.className = "share-close";
+    close.textContent = "×";
+    close.setAttribute("aria-label", "Close");
+    col.appendChild(close);
+
+    const make = (id, label) => {
+      const b = doc.createElement("button");
+      b.type = "button";
+      b.id = id;
+      b.className = "btn share-option";
+      b.textContent = label;
+      b.addEventListener("click", () => {
+        doCopy(buildSnippets()[id]);
+        // Close the modal immediately, then show "Copied!" on the share
+        // button and restore its icon after a beat.
+        closeShareMenu();
+        flashShareButton();
+      });
+      col.appendChild(b);
+      return b;
+    };
+    make("url", "Copy URL");
+    make("iframe", "Copy iframe code");
+    make("widget", "Copy Web Component code");
+
+    wrap.appendChild(col);
+    (doc.body || doc).appendChild(wrap);
+    shareMenu = wrap;
+
+    const closeOnBackdrop = (e) => { if (e.target === wrap) closeShareMenu(); };
+    wrap.addEventListener("click", closeOnBackdrop);
+    close.addEventListener("click", closeShareMenu);
+    const onKey = (e) => { if (e.key === "Escape") closeShareMenu(); };
+    doc.addEventListener("keydown", onKey, true);
+    wrap.__onKey = onKey;
   }
 
   function makeCopyUrl() {

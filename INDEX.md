@@ -29,7 +29,7 @@ This is a heuristic for upgrade planning, not a guarantee — verify anything lo
 - **Weights:** green confirmed 1, green inferred 1.5, blue 2, gray 10, red impassable. Plus +1 every time the route switches axis.
 - **Journeys table** (alongside the grid): Weight, Segments (hover for the full stop-by-stop route), Risk. Clicking a row draws it.
 - **Current step:** once Home/Target are set, clicking a cell on the drawn path marks it as the current step — the path dims beyond it.
-- **Bookmarks:** the URL carries the whole journey — `#j;<fingerprint>;h<home>;t<target>;<route>;s<step>` — auto-synced as you move pins/select/advance. A **Copy Link** button copies the shareable URL. On load, bookmarks re-map onto the current grid by version string; if the bookmarked route is no longer valid a note explains why.
+- **Bookmarks:** the URL carries the whole journey — `#j;<fingerprint>;h<home>;t<target>;<route>;s<step>` — auto-synced as you move pins/select/advance. A **share menu** (share icon) copies the URL, an `<iframe>` snippet, or a `<ruby-rails-matrix>` web-component snippet — all carrying the current journey. On load, bookmarks re-map onto the current grid by version string; if the bookmarked route is no longer valid a note explains why.
 - Marching-ants animation on the path was discussed and explicitly deferred to a "v2."
 
 ## Repo layout
@@ -37,7 +37,7 @@ This is a heuristic for upgrade planning, not a guarantee — verify anything lo
 All data lives in `data.json` — the single source of truth. Versions carry `released`/`support`/`eol` dates; cells carry `status`/`confidence`/`notes` (template refs + literals).
 
 - `src/widget.js` — `<ruby-rails-matrix>` custom element (shadow DOM), the single UI entry for both the site page and embeds.
-- `src/core.js` — `createApp(DATA, root, opts)`: wires grid/table/pins/paths, URL serialization, Copy Link. Reused by both the site and the widget.
+- `src/core.js` — `createApp(DATA, root, opts)`: wires grid/table/pins/paths, URL serialization, share menu (URL / iframe / web-component copies). Reused by both the site and the widget.
 - `src/notes.js` — `Notes` class: version comparison, note templates + per-cell refs, rule fallback (`noteRules`).
 - `src/router.js` — `Router` class (pure): k-shortest-paths, legs, risk, weights.
 - `src/grid.js` — `Grid` class: SVG matrix, draggable pins, path drawing + current-step dimming.
@@ -66,14 +66,14 @@ Drop the matrix card (legend, toolbar, grid + journeys table) into any page:
 
 - Dev: serve the folder (`python3 -m http.server`) and open `index.html` — it loads the ESM modules directly.
 - Build: `npm run build` (esbuild) → `dist/` with `widget.js` (ESM bundle) plus assets.
-- GitHub Pages: `.github/workflows/pages.yml` runs `npm ci && npm run build` on push and deploys `dist/`.
+- GitHub Pages: `.github/workflows/pages.yml` runs `npm ci && npm run build` on push and deploys the `dist/` directory.
 - Everything is version-driven from `data.json`; nothing in the HTML or JS hardcodes a Ruby/Rails version.
 
 ## Roadmap
 
 1. ✅ **Data extraction** — `data.json` is the single source of truth.
 2. ✅ **Popovers** — every native `title` replaced by a styled popover (hover/focus, 50vh max); Sources section kept, Method prose folded into cell notes.
-3. ✅ **Journey serialization** — `#j;…` fragment with fingerprint + version-encoded home/target + exact route runs + step; Copy Link.
+3. ✅ **Journey serialization** — `#j;…` fragment with fingerprint + version-encoded home/target + exact route runs + step; share menu.
 4. ✅ **Current step in the hash** — clicking a path cell advances the step; persisted in `s`; dims the remainder.
 5. ✅ **GitHub Pages scaffold** — esbuild → `dist/`, Actions workflow.
 6. ✅ **Embed as a widget** — `<ruby-rails-matrix>` custom element (shadow DOM), configurable Home/Target/theme; plus `embed.html` (card-only iframe page) for GitLab MRs where scripts are stripped.
