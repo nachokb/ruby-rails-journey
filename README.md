@@ -56,10 +56,10 @@ npm run test:smoke
 
 ## Embed via iframe (GitLab MR)
 
-GitLab strips `<script>` from MR descriptions, so the widget's JS bundle can't run there. Instead use the iframe build (`embed.html`, card-only, fixed 780px):
+GitLab strips `<script>` from MR descriptions, so the widget's JS bundle can't run there. Instead use the iframe build (`embed.html`, card-only, fixed 840px):
 
 ```html
-<iframe src="https://<site>/embed.html#j;…" width="780" height="660"></iframe>
+<iframe src="https://<site>/embed.html#j;…" width="840" height="800"></iframe>
 ```
 
 - The `#j;…` fragment configures Home/Target/path — the **share menu** (share icon in the toolbar) offers three copies: **Copy URL**, **Copy iframe code**, and **Copy Web Component code** (all carrying the current journey).
@@ -79,4 +79,4 @@ All data lives in `data.json` (versions with release/EOL dates, per-cell status/
 - `test/` — Node test suite
 - `dist/` — build output (gitignored)
 - `demo.html` — widget demo page
-- `embed.html` — iframe embed page (card-only, fixed 780px, for GitLab MRs)
+- `embed.html` — iframe embed page (card-only, fixed 840px, for GitLab MRs)

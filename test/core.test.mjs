@@ -166,7 +166,7 @@ console.log("\nCORE BEHAVIOR: ALL PASS");
   await new Promise((r) => setTimeout(r, 10));
   const iframe = copied[0] || "";
   const wc = copied[1] || "";
-  assert(iframe.includes("<iframe") && iframe.includes("embed.html") && iframe.includes("width=\"780\"") && iframe.includes("height=\"660\""), "iframe snippet");
+  assert(iframe.includes("<iframe") && iframe.includes("embed.html") && iframe.includes("width=\"840\"") && iframe.includes("height=\"800\""), "iframe snippet");
   assert(iframe.indexOf("#j;") >= 0, "iframe carries journey fragment");
   assert(wc.includes("<script") && wc.includes("widget.js") && wc.includes("<ruby-rails-matrix"), "web component snippet");
   assert(wc.includes("home=\"6.1|2.5\"") && wc.includes("target=\"7.1|3.3\"") && wc.includes("data-journey"), "wc has home/target/data-journey");

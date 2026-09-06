@@ -474,9 +474,12 @@ function makeStructuredPopover(el) {
     return {
       url: makeCopyUrl(),
       iframe: '<iframe src="' + shareBase("embed") + (frag ? "#" + frag : "") +
-        '" width="780" height="660" title="Ruby × Rails Matrix" style="border:0"></iframe>',
+        '" width="840" height="800" title="Ruby × Rails Journey" style="border:0"></iframe>',
+      markdown: '![](' + shareBase("embed") + (frag ? "#" + frag : "") +
+        '){width="840" height="800"}',
       widget: '<script type="module" src="' + shareBase("widget") + '"></script>\n' +
         '<ruby-rails-matrix ' + widgetAttrs() + '></ruby-rails-matrix>'
+
     };
   }
 
@@ -533,6 +536,7 @@ function makeStructuredPopover(el) {
     };
     make("url", "Copy URL");
     make("iframe", "Copy iframe code");
+    make("markdown", "Copy iframe code as Markdown");
     make("widget", "Copy Web Component code");
 
     wrap.appendChild(col);

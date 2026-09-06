@@ -103,7 +103,6 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   margin: 0;
-  padding: 2.5rem 1.5rem 4rem;
   line-height: 1.5;
 }
 
@@ -694,11 +693,6 @@ svg#matrix { display: block; font-family: var(--font-mono); }
 }
 
 /* ---- Embed page ---- */
-
-.embed {
-  width: 780px;
-  padding: 1rem;
-}
 
 .embed .card {
   margin: 0;
